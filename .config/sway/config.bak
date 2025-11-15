@@ -1,0 +1,243 @@
+### BASIC SETTINGS ###
+
+# Super as modifier
+set $mod Mod4
+
+# Terminal
+set $term kitty
+
+# App launcher (bemenu)
+#set $menu bemenu-run --fn "Sans 11" --nb "#1e1e2e" --nf "#cdd6f4" --hb "#313244" --hf "#f9e2af" --tb "#1e1e2e" --tf "#89b4fa"
+set $menu j4-dmenu-desktop --dmenu='bemenu -i -l 20' --term='kitty'
+
+### KEYBOARD LAYOUT (GERMAN) ###
+
+input * {
+    xkb_layout "de"
+}
+
+### OUTPUT / BACKGROUND ###
+
+output * bg ~/Pictures/anime_bg.png fill
+
+### AUTOSTART APPS ###
+
+# Notifications
+exec_always swaync
+exec_always swaync-client -swb
+
+# Waybar as the top bar
+exec_always sh -c 'pkill waybar; waybar'
+
+### BASIC KEYBINDINGS (i3-LIKE) ###
+
+# Start terminal
+bindsym $mod+Return exec $term
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# App launcher
+bindsym $mod+d exec $menu
+
+# Reload config
+bindsym $mod+Shift+c reload
+
+# Exit Sway
+bindsym $mod+Shift+e exit
+
+
+### FOCUS MOVEMENT ###
+
+# Vim-style
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Arrow keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Alt+Left focus parent, focus left
+bindsym $mod+Alt+Right focus parent, focus right
+bindsym $mod+Alt+Up focus parent, focus up
+bindsym $mod+Alt+Down focus parent, focus down
+
+
+### MOVE WINDOWS ###
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+
+### SPLITS / LAYOUT ###
+
+# Vertical / horizontal split
+bindsym $mod+v splitv
+bindsym $mod+Shift+v splith
+
+# Toggle floating
+bindsym $mod+Shift+space floating toggle
+
+# Fullscreen
+bindsym $mod+f fullscreen
+
+# Focus parent / child
+bindsym $mod+a focus parent
+bindsym $mod+z focus child
+
+# Tabbing and stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+s layout stacking
+bindsym $mod+e layout toggle split
+
+# Gaps
+gaps inner 15
+gaps outer 20
+
+### RESIZE MODE (LIKE I3) ###
+mode "resize" {
+    bindsym h resize shrink width 10px
+    bindsym j resize grow height 10px
+    bindsym k resize shrink height 10px
+    bindsym l resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to normal mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Enter resize mode
+bindsym $mod+r mode "resize"
+
+
+### LOCK / IDLE (BASIC) ###
+
+# Lock screen (you may need to configure swaylock-theme)
+bindsym $mod+Escape exec swaylock -f
+
+# Idle: lock after 5 min, turn off screen after 10
+#exec_always swayidle -w \
+    #timeout 300 'swaylock -f' \
+    #timeout 600 'swaymsg "output * dpms off"' \
+    #resume 'swaymsg "output * dpms on"'
+
+
+### MISC ###
+
+# Starting Keyring
+#exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+
+# Screenshot current screen
+bindsym Print exec grim ~/Pictures/screenshot-$(date +'%Y-%m-%d-%H%M%S').png
+
+# Screenshot selection
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +'%Y-%m-%d-%H%M%S').png
+
+# Fixed workspaces
+set $ws1 "1:  Web"
+set $ws2 "2:  Dev"
+set $ws3 "3:  Music"
+set $ws4 "4:  Communication"
+set $ws5 "5:  Torrents"
+set $ws6 "6:  Misc"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+
+# Switch to workspaces that are not fixed
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Fixing apps to default workspaces
+assign [app_id="firefox-esr"] $ws1
+assign [app_id="org.signal.Signal"] $ws4
+assign [class="discord"] $ws4
+assign [class="Spotify"] $ws3
+assign [app_id="org.qbittorrent.qBittorent"] $ws5
+assign [class="Code"] $ws2
+
+# Workspaces 1–6 should live on DP-1 when it exists
+workspace $ws1 output DP-1
+workspace $ws2 output DP-1
+workspace $ws3 output DP-1
+workspace $ws4 output DP-1
+workspace $ws5 output DP-1
+workspace $ws6 output DP-1
+
+### DISPLAY CONFIG ###
+## Hier wäre es cool, wenn ich per Menü durch mehrere Setups durchschalten könnte, je nachdem welches angeschlossen ist ##
+
+# External MSI MAG401QR – main screen, ultrawide on top
+#output DP-1 {
+#    mode 3440x1440@144Hz
+#    scale 1
+#    position 0 0
+#}
+
+# Internal laptop panel – HiDPI, centered below the ultrawide
+#output eDP-1 {
+#    mode 2880x1800@90Hz
+#    scale 2
+#    position 1053 1440
+#}
+
+# Left monitor – DP-2, rotated 270°, 1920x1080 @ 100 Hz
+output DP-2 {
+    mode 1920x1080@100Hz
+    position 0 0
+    transform 270
+    scale 1
+}
+
+# Center monitor – DP-1, ultrawide 3440x1440 @ 144 Hz
+output DP-1 {
+    mode 3440x1440@144Hz
+    position 1080 196
+    transform normal
+    scale 1
+}
+
+### Some useful tools ###
+
+for_window [app_id="nm-connection-editor"] floating enable, move position center
+for_window [app_id="blueman-manager"] floating enable, move position center
+
+bindsym $mod+n exec nm-connection-editor
+bindsym $mod+b exec blueman-manager
+
+### Control the system ###
+bindsym $mod+Shift+Escape exec "swaylock -f && systemctl suspend"

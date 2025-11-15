@@ -1,0 +1,97 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 32,
+
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "battery", "custom/notification", "tray"],
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": false,
+    "format": "{value}"
+  },
+
+"custom/notification": {
+  "return-type": "json",
+  "exec-if": "which swaync-client",
+  "exec": "swaync-client -swb",
+  "format": "{} {icon}",
+"format-icons": {
+ "notification": "",
+    "none": "",
+    "dnd-notification": "",
+    "dnd-none": "󰂛",
+    "inhibited-notification": "",
+    "inhibited-none": "",
+    "dnd-inhibited-notification": "",
+    "dnd-inhibited-none": ""
+  },
+  "on-click": "sleep 0.1 && swaync-client -t -sw",
+  "on-click-right": "sleep 0.1 && swaync-client -d -sw",
+  "tooltip": false,
+  "escape": true,
+  "max-length": 10
+},
+
+  "clock": {
+    "interval": 1,
+    "format": " {0:%a %d.%m}   {0:%H:%M}",
+    "tooltip-format": "{0:%A, %d.%m.%Y\n%H:%M:%S}"
+  },
+
+  "cpu": {
+    "format": " {usage:2}%",
+    "tooltip": true
+  },
+
+  "memory": {
+    "format": "  {used:0.1f}G",
+    "tooltip": true
+  },
+
+  "temperature": {
+    "critical-threshold": 80,
+    "format": " {temperatureC}°C"
+  },
+
+  "network": {
+    "interval": 2,
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "  {ipaddr}",
+    "format-disconnected": "",
+    "tooltip-format": "{ifname}\n{ipaddr}"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon}  {volume}%",
+    "format-muted": " muted",
+    "format-icons": {
+      "headphones": "",
+      "handsfree": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    }
+  },
+
+  "battery": {
+    "states": {
+      "warning": 20,
+      "critical": 10
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {icon} {capacity}%",
+    "format-full": "  {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 6
+  }
+}
