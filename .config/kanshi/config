@@ -1,0 +1,25 @@
+# Home Setup Dual Monitors
+profile home_dual {
+    # Left monitor – DP-2, rotated 270°, 1920x1080 @ 100 Hz
+    output 'Acer Technologies CBA242Y H 53310CECB3W01' mode 1920x1080@100Hz position 0,0 transform 90 scale 1
+
+    # Center monitor – DP-1, ultrawide 3440x1440 @ 144 Hz
+    output 'Microstep MSI MAG401QR EA5H024801492' mode 3440x1440@144Hz position 1080,196 transform normal scale 1
+
+    # Deactivate laptop display
+    output eDP-1 disable
+}
+
+# Just using the Laptop screen
+profile laptop {
+    # Scaling up the HiDPI display so everything is readable
+    output eDP-1 mode 2880x1800@90Hz transform normal scale 2
+}
+
+# Using LG monitor at work and shutoff Laptop screen (I do not really need it there)
+profile work_single {
+    # TODO: Need to get monitor data for work
+
+    # Deactivate laptop display
+    output eDP-1 disable
+}
