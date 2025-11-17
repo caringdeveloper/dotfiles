@@ -8,8 +8,9 @@
 }
 
 window#waybar {
-  background: #11111b;
+  /*background: #11111b;*/
   color: #cdd6f4;
+  background-color: rgba(0, 0, 0, 0);
 }
 
 /* Workspaces */
@@ -22,7 +23,7 @@ window#waybar {
   margin: 4px 2px;
   border-radius: 9999px;
   background: transparent;
-  color: #7f849c;
+  color: #ffffff;
 }
 
 #workspaces button.focused {
@@ -45,9 +46,11 @@ window#waybar {
 #battery,
 #tray,
 #mode,
+#tray,
+#custom-notification,
 #window {
   padding: 0 10px;
-  margin: 0 4px;
+  margin: 4px 4px;
   border-radius: 9999px;
 }
 
@@ -89,6 +92,10 @@ window#waybar {
   background: #181825;
 }
 
+#custom-notification {
+  background: #181825;
+}
+
 /* Battery states */
 #battery.warning {
   background: #f9e2af;
@@ -102,5 +109,5 @@ window#waybar {
 
 /* Tray */
 #tray {
-  background: #11111b;
+  background: #181825;
 }
