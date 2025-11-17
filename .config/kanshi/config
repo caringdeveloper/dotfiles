@@ -19,7 +19,8 @@ profile laptop {
 # Using LG monitor at work and shutoff Laptop screen (I do not really need it there)
 profile work_single {
     # TODO: Need to get monitor data for work
+    output 'LG Electronics LG HDR WQHD 107NTHM77169' mode 3440x1440@84.979Hz position 0,0 transform normal scale 1    
 
-    # Deactivate laptop display
-    output eDP-1 disable
+    # Activate laptop display
+    output eDP-1 mode 2880x1800@90Hz position 980,1440 transform normal scale 2
 }
