@@ -25,3 +25,9 @@ profile work_single {
     #output eDP-1 mode 2880x1800@90Hz position 980,1440 transform normal scale 2
     output eDP-1 disable
 }
+
+profile home_lg_single {
+    output 'LG Electronics LG HDR WQHD 108NTLE0G808' mode 3440x1440@99.982Hz position 0,0 scale 1
+    
+    output eDP-1 disable
+}
