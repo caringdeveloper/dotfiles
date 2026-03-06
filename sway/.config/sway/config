@@ -1,5 +1,10 @@
 # Main Sway config – split into includes
 
+# Executing some system relevant stuff
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec eval $(gnome-keyring-daemon --start)
+exec export SSH_AUTH_SOCK
+
 include ~/.config/sway/config.d/00-vars.conf
 include ~/.config/sway/config.d/10-input.conf
 include ~/.config/sway/config.d/20-output-appearance.conf
